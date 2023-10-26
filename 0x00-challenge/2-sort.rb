@@ -6,26 +6,19 @@
 
 result = []
 ARGV.each do |arg|
-    # skip if not integer
-    next if arg !~ /^-?[0-9]+$/
+    # Check if the argument is an integer
+    if arg =~ /^-?\d+$/
+        i_arg = arg.to_i
 
-    # convert to integer
-    i_arg = arg.to_i
-    
-    # insert result at the right position
-    is_inserted = false
-    i = 0
-    l = result.size
-    while !is_inserted && i < l do
-        if result[i] < i_arg
-            i += 1
-        else
-            result.insert(i - 1, i_arg)
-            is_inserted = true
-            break
+        # Find the correct position to insert the integer
+        index_to_insert = 0
+        while index_to_insert < result.length && result[index_to_insert] < i_arg
+            index_to_insert += 1
         end
+
+        # Insert the integer at the determined position
+        result.insert(index_to_insert, i_arg)
     end
-    result << i_arg if !is_inserted
 end
 
 puts result
